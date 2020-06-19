@@ -132,7 +132,7 @@ result_df=pd.DataFrame(data_list,columns=['cd_name','food_make_url'])
 result_df.to_excel('/Users/mycelebs_dev/PycharmProjects/web_clowling/190704/result_coo_data_190704.xlsx',index=False)
 driver.close()									
 									</details></code></pre>
-									<p><span class="image left"><img src="images/receipeList.png" alt="" /></span></br></br>기존 애플리케이션(말해 요리)에 등록되어 있는 요리 항목 23656개</br> 이름이 저장되어 있는 엑셀 파일을 읽어 들이고,</br>
+									<p><span class="image left"><img src="images/receipeList.png" alt="" width="100%"/></span></br></br>기존 애플리케이션(말해 요리)에 등록되어 있는 요리 항목 23656개</br> 이름이 저장되어 있는 엑셀 파일을 읽어 들이고,</br>
 									그 값을 youtube 검색창에 "{name} 만들기 -먹방" 으로 검색쿼리를 던졌습니다. -먹방 옵션으로 요리 제작 레시피 영상위주로 뽑았습니다.</br>
 									검색 결과가 6개 미만인 영상은 퀄리티가 대게 낮아 제외시켰습니다.</br>
 									검색된 영상에서 상위 6개 영상의 제목과 href(주소)를 갖고와서 xlsx파일로 내보냅니다.</p>
@@ -240,7 +240,7 @@ result_df=pd.DataFrame(data_list,columns=['cd_name','title_name','food_make_url'
 result_df.to_excel('/Users/mycelebs_dev/PycharmProjects/web_clowling/YouTube/190722/result_coo_data_190722.xlsx',index=False)
 driver.close()
 									</details></code></pre>
-									<span class="imgage fit"><img src="images/result_crawling.png" alt=""></span>
+									<span class="imgage fit"><img src="images/result_crawling.png" alt="" width="100%"></span>
 									<p><b>youtube_creawling_title.py</b>코드에서 나온 엑셀을 다시 읽어들여, 긁어온 href 태그의 링크로 이동합니다.</br>
 									그리고 필요한 정보 5가지(영상 제목 / 주소 / 조회수 / 업로더 / 썸네일 이미지 주소)를 갖고와 xlsx파일로 내보냅니다.</br>
 									크롤링에 실패한 항목은 숫자 '2'로 채워넣어 엑셀에서 필터기능을 이용해 따로 관리가 가능합니다.</p>
