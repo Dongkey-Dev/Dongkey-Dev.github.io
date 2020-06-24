@@ -52,6 +52,13 @@ footer, header, hgroup, menu, nav, section {
 		width:30%;
 		box-sizing: border-box;
 	}
+	.second_under{
+		float : left;
+		margin-top: 5%;
+		margin-left: 5%;
+		margin-right: 5%;
+		box-sizing: border-box;
+	}
 
 body {
 	line-height: 1;
