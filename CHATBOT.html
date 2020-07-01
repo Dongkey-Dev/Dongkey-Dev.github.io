@@ -102,41 +102,42 @@
 	<details><summary>자세히 보기</summary>
 	// 위치 
     var loc =datapage
-     .select("div[class$=vk_h]")+" " ; // 문자열로 바꿔 주기 위해 + ""
-	loc = loc.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    loc = loc.replace(/\n/g, " "); // 엔터 제거
+     .select("div[class$=vk_h]")+" " ; 
+	loc = remove_tag(loc)
 	loc = loc.split(" ");
 	loc = loc[2] + " " + loc[3] + "";
 	
 	var time = datapage
 	.select("div[class$=vk_sh]").get(0)+" ";
-	time = time.replace(/<[^>]+>/g, "");
-	time = time.replace(/\n/g, " ");
+	time = remove_tag(time)
 	
 	var weath = datapage
 	.select("span[class$=vk_sh]").get(0)+" ";
-	weath = weath.replace(/<[^>]+>/g, "");
-	weath = weath.replace(/\n/g, " ");
+	weath = remove_tag(weath)
 	
 	var cur_temp = datapage
 	.select("span.wob_t").get(0) + " ";
-	cur_temp = cur_temp.replace(/<[^>]+>/g, "");
-	cur_temp = cur_temp.replace(/\n/g, " ");
+	cur_temp = remove_tag(cur_temp)
 	
 	var high_temp = datapage
 	.select("div.vk_gy").select("span.wob_t").get(2) + " ";
-	high_temp = high_temp.replace(/<[^>]+>/g, "");
-	high_temp = high_temp.replace(/\n/g, " ");
+	high_temp = remove_tag(high_temp)
 	
 	var low_temp = datapage
 		.select("div[class$=wob_ds]").select("span[class$=wob_t]").get(2) + " ";
-	low_temp = low_temp.replace(/<[^>]+>/g, "");
-	low_temp = low_temp.replace(/\n/g, " ");
+	low_temp = remove_tag(low_temp)
 	
 	replier.reply("[ 날씨 : "+loc + " ]" + "\n" + time + ": " + cur_temp+"°C" + "\n" +  weath + "\n" +
 	"최고기온 : " +  high_temp+ "°C" + "\n" +
 	"최저기온 : " +  low_temp+ "°C" + "\n") 
   }
+}
+
+function remove_tag(data_tag){ // 태그 제거, 줄바꿈 제거
+	data_tag = data_tag.replace(/<[^>]+>/g, "")
+	data_tag = data_tag.replace(/\n/g, " ");
+	var data_untag = data_tag
+	return data_untag
 }
 								</details></code></pre>
 								<p></p>
@@ -164,72 +165,69 @@
 		return 0
 	}
 
-    searchstockname = searchstockname.replace(/<[^>]+>/g, "");
-	searchstockname = searchstockname.replace(/\n/g, " ");	
+    searchstockname = remove_tag(searchstockname)
 	//검색된 종목 종류
     var searchstockcategori =datapage
         .select("div.HfMth") + ""; // 문자열로 바꿔 주기 위해 + ""
 	//replier.reply("종가 data 완료")
 
-    searchstockcategori = searchstockcategori.replace(/<[^>]+>/g, "");
-	searchstockcategori = searchstockcategori.replace(/\n/g, " ");
+    searchstockcategori = remove_tag(searchstockcategori)
 	var stockcode1 = searchstockcategori.split(" ")
 	var stockcode2 = stockcode1[3]
 
 
 	//검색된 종목 최종 주가 날짜
     var searchstockpricedate =datapage
-        .select("span[jsname=ihIZgd]") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("span[jsname=ihIZgd]") + ""; 
 	//replier.reply("종가 data 완료")
-    searchstockpricedate = searchstockpricedate.replace(/<[^>]+>/g, "");
+    searchstockpricedate = remove_tag(searchstockpricedate)
 	
 	//검색된 종목 화폐
     var exchange =datapage
-        .select("span.knFDje") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("span.knFDje") + "";
 	//replier.reply("종가 data 완료")
 
-    exchange = exchange.replace(/<[^>]+>/g, "");
+    exchange = remove_tag(exchange)
 	exchange = exchange.replace(/\n/g, " ");
 	
 	
 	//검색된 종목 최종 주가
     var searchstockprice =datapage
-        .select("span.IsqQVc.NprOob") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("span.IsqQVc.NprOob") + ""; 
 	//replier.reply("종가 data 완료")
 
     searchstockprice = searchstockprice.replace(/<[^>]+>/g, "");
 
 	//검색된 종목 최종 주가 증가
     var searchstockpricevariance =datapage
-        .select("span[jsname=qRSVye]") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("span[jsname=qRSVye]") + "";
 	//replier.reply("종가 data 완료")
 
-    searchstockpricevariance = searchstockpricevariance.replace(/<[^>]+>/g, "");
+    searchstockpricevariance = remove_tag(searchstockpricevariance)
 	searchstockpricevariance = searchstockpricevariance.replace(/\n/g, " ");
 	
 	//검색된 종목 최종 주가 증가 퍼센티지
     var searchstockpricevariancepercentage =datapage
-        .select('span[jsname=rfaVEf]') + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select('span[jsname=rfaVEf]') + ""; 
 		
-    searchstockpricevariancepercentage = searchstockpricevariancepercentage.replace(/<[^>]+>/g, "");
+    searchstockpricevariancepercentage = remove_tag(searchstockpricevariancepercentage)
 	searchstockpricevariancepercentage = searchstockpricevariancepercentage.split("\n")
 	searchstockpricevariancepercentage = searchstockpricevariancepercentage[0]
 
 	//검색된 종목 프리/애프터 주가
     var searchstockpreafterprice =datapage
-        .select("span[jsname=wurNO]") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("span[jsname=wurNO]") + ""; 
 	//replier.reply("종가 data 완료")
 
     searchstockpreafterprice = searchstockpreafterprice.replace(/<[^>]+>/g, "");
 	
-	if (searchstockpreafterprice == ""){
+	if (searchstockpreafterprice == ""){  // 검색한 종목이 프리/애프터 시장을 지원하지 않을경우
 
 		var searchstockDividendYield =datapage
-        .select("td.iyjjgb") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.iyjjgb") + ""; 
 		//replier.reply("종가 data 완료")
 
-		searchstockDividendYield = searchstockDividendYield.replace(/<[^>]+>/g, "");
-		searchstockDividendYield = searchstockDividendYield.split("\n");
+		searchstockDividendYield = remove_tag(searchstockDividendYield)
 		searchstockDividendYield = searchstockDividendYield[5]
 		//출력 메세지
 		var infomsg = 
@@ -244,24 +242,23 @@
 	
 	//검색된 종목 프리/애프터 주가 증가
     var searchstockpreafterpricevariance =datapage
-        .select("span[jsname=TmYleb]") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("span[jsname=TmYleb]") + ""; 
 	//replier.reply("종가 data 완료")
 
-    searchstockpreafterpricevariance = searchstockpreafterpricevariance.replace(/<[^>]+>/g, "");
+    searchstockpreafterpricevariance = remove_tag(searchstockpreafterpricevariance);
 
 	//검색된 종목 프리/애프터 주가 증가 퍼센티지
     var searchstockpreafterpricevariancepercentage =datapage
-        .select("span[jsname=sam3Lb]") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("span[jsname=sam3Lb]") + ""; 
 	//replier.reply("종가 data 완료")
 
-    searchstockpreafterpricevariancepercentage = searchstockpreafterpricevariancepercentage.replace(/<[^>]+>/g, "");
+    searchstockpreafterpricevariancepercentage = remove_tag(searchstockpreafterpricevariancepercentage)
 
 	//검색된 종목 배당수익률
     var searchstockDividendYield =datapage
-        .select("td.iyjjgb") + ""; // 문자열로 바꿔 주기 위해 + ""
-	//replier.reply("종가 data 완료")
+        .select("td.iyjjgb") + ""; 
 
-    searchstockDividendYield = searchstockDividendYield.replace(/<[^>]+>/g, "");
+    searchstockDividendYield = remove_tag(searchstockDividendYield);
 	searchstockDividendYield = searchstockDividendYield.split("\n");
 	searchstockDividendYield = searchstockDividendYield[5]
 
@@ -279,6 +276,14 @@
     replier.reply(infomsg);
   }
 }
+
+function remove_tag(data_tag){
+	data_tag = data_tag.replace(/<[^>]+>/g, "")
+	data_tag = data_tag.replace(/\n/g, " ");
+	var data_untag = data_tag
+	return data_untag
+}
+
 								</details></code></pre>
 								<p></p>
 								<h3>indices.js</h3>
@@ -295,7 +300,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 	
 	//S&P 500
     var sp500data =incidata
-        .select("td.pid-166-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-166-last") + "";
 	//replier.reply("종가 data 완료")
 <details><summary>자세히 보기</summary>
     sp500data = sp500data.replace(/<[^>]+>/g, "");
@@ -305,15 +310,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-166-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    sp500support = sp500support.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    sp500support = sp500support.replace(/\n/g, " "); // 엔터 제거
+    sp500support = remove_tag(sp500support)
 	
 	sp500data = sp500data.split('\n')
 	sp500support = sp500support.split(' ')
 	
 	//S&P VIX
     var vixdata =incidata
-        .select("td.pid-44336-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-44336-last") + "";
 	//replier.reply("종가 data 완료")
 
     vixdata = vixdata.replace(/<[^>]+>/g, "");
@@ -323,15 +327,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-44336-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    vixdatasupport = vixdatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    vixdatasupport = vixdatasupport.replace(/\n/g, " "); // 엔터 제거
+    vixdatasupport = remove_tag(vixdatasupport)
 	
 	vixdata = vixdata.split('\n')
 	vixdatasupport = vixdatasupport.split(' ')
 	
 	//다우30
     var dow30data =incidata
-        .select("td.pid-169-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-169-last") + ""; 
 	//replier.reply("종가 data 완료")
 
     dow30data = dow30data.replace(/<[^>]+>/g, "");
@@ -341,15 +344,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-169-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    dow30datasupport = dow30datasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    dow30datasupport = dow30datasupport.replace(/\n/g, " "); // 엔터 제거
+    dow30datasupport = remove_tag(dow30datasupport)
 	
 	dow30data = dow30data.split('\n')
 	dow30datasupport = dow30datasupport.split(' ')
 	
 	//나스닥
     var nasdata =incidata
-        .select("td.pid-14958-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-14958-last") + "";
 	//replier.reply("종가 data 완료")
 
     nasdata = nasdata.replace(/<[^>]+>/g, "");
@@ -359,44 +361,41 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-14958-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    nasdatasupport = nasdatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    nasdatasupport = nasdatasupport.replace(/\n/g, " "); // 엔터 제거
+    nasdatasupport = remove_tag(nasdatasupport)
 	
 	nasdata = nasdata.split('\n')
 	nasdatasupport = nasdatasupport.split(' ')
 	
 	//코스피
     var kospidata =incidata
-        .select("td.pid-37426-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-37426-last") + "";
 	//replier.reply("종가 data 완료")
 
-    kospidata = kospidata.replace(/<[^>]+>/g, "");
+    kospidata = remove_tag(kospidata)
 
 	//replier.reply("증가분 data connect 시작")
     var kospidatasupport =incidata
         .select("td.pid-37426-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    kospidatasupport = kospidatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    kospidatasupport = kospidatasupport.replace(/\n/g, " "); // 엔터 제거
+    kospidatasupport = remove_tag(kospidatasupport)
 	
 	kospidata = kospidata.split('\n')
 	kospidatasupport = kospidatasupport.split(' ')
 	
 	//니케이
     var kosdaqdata =incidata
-        .select("td.pid-38016-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-38016-last") + "";
 	//replier.reply("종가 data 완료")
 
-    kosdaqdata = kosdaqdata.replace(/<[^>]+>/g, "");
+    kosdaqdata = remove_tag(kosdaqdata)
 
 	//replier.reply("증가분 data connect 시작")
     var kosdaqdatasupport =incidata
         .select("td.pid-38016-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    kosdaqdatasupport = kosdaqdatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    kosdaqdatasupport = kosdaqdatasupport.replace(/\n/g, " "); // 엔터 제거
+    kosdaqdatasupport = remove_tag(kosdaqdatasupport)
 	
 	kosdaqdata = kosdaqdata.split('\n')
 	kosdaqdatasupport = kosdaqdatasupport.split(' ')
@@ -415,7 +414,15 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 
     replier.reply(incimsg);
   }
-}								
+}		
+
+function remove_tag(data_tag){
+	data_tag = data_tag.replace(/<[^>]+>/g, "")
+	data_tag = data_tag.replace(/\n/g, " ");
+	var data_untag = data_tag
+	return data_untag
+}
+
 								</details></code></pre>
 								<p></p>
 
@@ -434,7 +441,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 	
 	//S&P 500
     var sp500data =incidata
-        .select("td.pid-8839-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8839-last") + "";
 	//replier.reply("종가 data 완료")
 <details><summary>자세히 보기</summary>
     sp500data = sp500data.replace(/<[^>]+>/g, "");
@@ -444,15 +451,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-8839-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    sp500support = sp500support.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    sp500support = sp500support.replace(/\n/g, " "); // 엔터 제거
+    sp500support = remove_tag(sp500support)
 	
 	sp500data = sp500data.split('\n')
 	sp500support = sp500support.split(' ')
 	
 	//S&P VIX
     var vixdata =incidata
-        .select("td.pid-8884-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8884-last") + "";
 	//replier.reply("종가 data 완료")
 
     vixdata = vixdata.replace(/<[^>]+>/g, "");
@@ -462,15 +468,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-8884-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    vixdatasupport = vixdatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    vixdatasupport = vixdatasupport.replace(/\n/g, " "); // 엔터 제거
+    vixdatasupport = remove_tag(vixdatasupport)
 	
 	vixdata = vixdata.split('\n')
 	vixdatasupport = vixdatasupport.split(' ')
 	
 	//다우30
     var dow30data =incidata
-        .select("td.pid-8873-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8873-last") + ""; 
 	//replier.reply("종가 data 완료")
 
     dow30data = dow30data.replace(/<[^>]+>/g, "");
@@ -480,15 +485,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-8873-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    dow30datasupport = dow30datasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    dow30datasupport = dow30datasupport.replace(/\n/g, " "); // 엔터 제거
+    dow30datasupport = remove_tag(dow30datasupport)
 	
 	dow30data = dow30data.split('\n')
 	dow30datasupport = dow30datasupport.split(' ')
 	
 	//나스닥
     var nasdata =incidata
-        .select("td.pid-8874-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8874-last") + ""; 
 	//replier.reply("종가 data 완료")
 
     nasdata = nasdata.replace(/<[^>]+>/g, "");
@@ -498,15 +502,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-8874-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    nasdatasupport = nasdatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    nasdatasupport = nasdatasupport.replace(/\n/g, " "); // 엔터 제거
+    nasdatasupport = remove_tag(nasdatasupport)
 	
 	nasdata = nasdata.split('\n')
 	nasdatasupport = nasdatasupport.split(' ')
 	
 	//코스피
     var kospidata =incidata
-        .select("td.pid-8987-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8987-last") + "";
 	//replier.reply("종가 data 완료")
 
     kospidata = kospidata.replace(/<[^>]+>/g, "");
@@ -516,15 +519,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-8987-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    kospidatasupport = kospidatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    kospidatasupport = kospidatasupport.replace(/\n/g, " "); // 엔터 제거
+    kospidatasupport = remove_tag(kospidatasupport)
 	
 	kospidata = kospidata.split('\n')
 	kospidatasupport = kospidatasupport.split(' ')
 	
 	//니케이
     var nikaidata =incidata
-        .select("td.pid-8859-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8859-last") + "";
 	//replier.reply("종가 data 완료")
 
     nikaidata = nikaidata.replace(/<[^>]+>/g, "");
@@ -534,8 +536,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-8859-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    nikaidatasupport = nikaidatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    nikaidatasupport = nikaidatasupport.replace(/\n/g, " "); // 엔터 제거
+    nikaidatasupport = remove_tag(nikaidatasupport)
 	
 	nikaidata = nikaidata.split('\n')
 	nikaidatasupport = nikaidatasupport.split(' ')
@@ -553,7 +554,15 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 
     replier.reply(incimsg);
   }
-}								
+}		
+
+function remove_tag(data_tag){
+	data_tag = data_tag.replace(/<[^>]+>/g, "")
+	data_tag = data_tag.replace(/\n/g, " ");
+	var data_untag = data_tag
+	return data_untag
+}
+
 								</details></code></pre>
 
 								<p></p>
@@ -574,42 +583,35 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 	// 코스피 코스닥 등락 퍼센티지 
 	<details><summary>자세히 보기</summary>
     var kospi =datapage
-     .select("span[id$=KOSPI_now]") + " " ; // 문자열로 바꿔 주기 위해 + ""
-	kospi = kospi.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    kospi = kospi.replace(/\n/g, " "); // 엔터 제거
+     .select("span[id$=KOSPI_now]") + " " ;
+	kospi = remove_tag(kospi)
 	
 	var kospi_ch = datapage
-     .select("span[id$=KOSPI_change]") + " " ; // 문자열로 바꿔 주기 위해 + ""
-	kospi_ch = kospi_ch.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    kospi_ch = kospi_ch.replace(/\n/g, " "); // 엔터 제거
+     .select("span[id$=KOSPI_change]") + " " ;
+	kospi_ch = remove_tag(kospi_ch)
 	
 	var kosdaq = datapage
-	 .select("span[id$=KOSDAQ_now]") + " " ; // 문자열로 바꿔 주기 위해 + ""
-	kosdaq = kosdaq.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    kosdaq = kosdaq.replace(/\n/g, " "); // 엔터 제거
+	 .select("span[id$=KOSDAQ_now]") + " " ;
+	kosdaq = remove_tag(kosdaq)
 	
 	var kosdaq_ch =datapage
-	 .select("span[id$=KOSDAQ_change]") + " " ; // 문자열로 바꿔 주기 위해 + ""
-	kosdaq_ch = kosdaq_ch.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    kosdaq_ch = kosdaq_ch.replace(/\n/g, " "); // 엔터 제거
+	 .select("span[id$=KOSDAQ_change]") + " " ; 
+	kosdaq_ch = remove_tag(kosdaq_ch)
 	
 	// 코스피 코스닥 개인 외인 기관 등락 퍼센티지 
     var updown =datapage
      .select("div[class$=lft]")
 	 
-	var gaemi = updown.select("li[class$=c2]")+ " " ; // 문자열로 바꿔 주기 위해 + ""
-	gaemi = gaemi.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    gaemi = gaemi.replace(/\n/g, " "); // 엔터 제거
+	var gaemi = updown.select("li[class$=c2]")+ " " ; 
+	gaemi = remove_tag(gaemi)
 	gaemi = gaemi.split(" ");
 	
-	var fore = updown.select("li[class$=c3]")+ " " ; // 문자열로 바꿔 주기 위해 + ""
-	fore = fore.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    fore = fore.replace(/\n/g, " "); // 엔터 제거
+	var fore = updown.select("li[class$=c3]")+ " " ;
+	fore = remove_tag(fore)
 	fore = fore.split(" ");
 	
-	var gigwan = updown.select("li[class$=c4]")+ " " ; // 문자열로 바꿔 주기 위해 + ""
-	gigwan = gigwan.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    gigwan = gigwan.replace(/\n/g, " "); // 엔터 제거
+	var gigwan = updown.select("li[class$=c4]")+ " " ; 
+	gigwan = remove_tag(gigwan)
 	gigwan = gigwan.split(" ");
 	//date = date.split(" ");
 	
@@ -629,7 +631,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 	)
 
   }
-}								
+}
+
+function remove_tag(data_tag){
+	data_tag = data_tag.replace(/<[^>]+>/g, "")
+	data_tag = data_tag.replace(/\n/g, " ");
+	var data_untag = data_tag
+	return data_untag
+}
 								</details></code></pre>
 								<p></p>
 								<h3>materials_futures.js</h3>
@@ -648,7 +657,7 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 	//금
 	<details><summary>자세히 보기</summary>
     var golddata =incidata
-        .select("td.pid-8830-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8830-last") + ""; 
 	//replier.reply("종가 data 완료")
 
     golddata = golddata.replace(/<[^>]+>/g, "");
@@ -658,15 +667,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-8830-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    golddatasupport = golddatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    golddatasupport = golddatasupport.replace(/\n/g, " "); // 엔터 제거
+    golddatasupport = remove_tag(golddatasupport)
 	
 	golddata = golddata.split('\n')
 	golddatasupport = golddatasupport.split(' ')
 	
 	//은
     var silverdata =incidata
-        .select("td.pid-8836-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8836-last") + "";
 	//replier.reply("종가 data 완료")
 
     silverdata = silverdata.replace(/<[^>]+>/g, "");
@@ -676,15 +684,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-8836-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    silverdatasupport = silverdatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    silverdatasupport = silverdatasupport.replace(/\n/g, " "); // 엔터 제거
+    silverdatasupport = remove_tag(silverdatasupport)
 	
 	silverdata = silverdata.split('\n')
 	silverdatasupport = silverdatasupport.split(' ')
 	
 	//팔라듐
     var palladiumdata =incidata
-        .select("td.pid-8883-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8883-last") + "";
 	//replier.reply("종가 data 완료")
 
     palladiumdata = palladiumdata.replace(/<[^>]+>/g, "");
@@ -694,15 +701,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-8883-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    palladiumdatasupport = palladiumdatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    palladiumdatasupport = palladiumdatasupport.replace(/\n/g, " "); // 엔터 제거
+    palladiumdatasupport = remove_tag(palladiumdatasupport)
 	
 	palladiumdata = palladiumdata.split('\n')
 	palladiumdatasupport = palladiumdatasupport.split(' ')
 	
 	//WTI유
     var wtidata =incidata
-        .select("td.pid-8849-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8849-last") + "";
 	//replier.reply("종가 data 완료")
 
     wtidata = wtidata.replace(/<[^>]+>/g, "");
@@ -712,15 +718,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-8849-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    wtidatasupport = wtidatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    wtidatasupport = wtidatasupport.replace(/\n/g, " "); // 엔터 제거
+    wtidatasupport = remove_tag(wtidatasupport)
 	
 	wtidata = wtidata.split('\n')
 	wtidatasupport = wtidatasupport.split(' ')
 	
 	//BRENT유
     var brentdata =incidata
-        .select("td.pid-8833-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8833-last") + "";
 	//replier.reply("종가 data 완료")
 
     brentdata = brentdata.replace(/<[^>]+>/g, "");
@@ -730,26 +735,24 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
         .select("td.pid-8833-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    brentdatasupport = brentdatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    brentdatasupport = brentdatasupport.replace(/\n/g, " "); // 엔터 제거
+    brentdatasupport = remove_tag(brentdatasupport)
 	
 	brentdata = brentdata.split('\n')
 	brentdatasupport = brentdatasupport.split(' ')
 	
 	//NATURAL유
     var naturaldata =incidata
-        .select("td.pid-8862-last") + ""; // 문자열로 바꿔 주기 위해 + ""
+        .select("td.pid-8862-last") + "";
 	//replier.reply("종가 data 완료")
 
-    naturaldata = naturaldata.replace(/<[^>]+>/g, "");
+    naturaldata = remove_tag(naturaldata)
 
 	//replier.reply("증가분 data connect 시작")
     var naturaldatasupport =incidata
         .select("td.pid-8862-pcp") + ""; // 증가분 처리
 	//replier.reply("증가분 data connect 완료")
 		
-    naturaldatasupport = naturaldatasupport.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-    naturaldatasupport = naturaldatasupport.replace(/\n/g, " "); // 엔터 제거
+    naturaldatasupport = remove_tag(naturaldatasupport)
 	
 	naturaldata = naturaldata.split('\n')
 	naturaldatasupport = naturaldatasupport.split(' ')
@@ -767,7 +770,14 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 
     replier.reply(incimsg);
   }
-}								
+}			
+
+function remove_tag(data_tag){
+	data_tag = data_tag.replace(/<[^>]+>/g, "")
+	data_tag = data_tag.replace(/\n/g, " ");
+	var data_untag = data_tag
+	return data_untag
+}
 								</details></code></pre>
 								<p></p>
 								<h3>record_closing_price.js</h3>
@@ -800,26 +810,30 @@ function response(room, msg, sender, isGroupChat, replier, ImageDB) {
 		
 			for(var i = 0; i < 10; i++){
 				var date = trs.get(i).select("td").get(0)+" ";
-				date = date.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-				date = date.replace(/\n/g, " "); // 엔터 제거
+				date = remove_tag(date)
 				date = date.replace("년 ",".");
 				date = date.replace("월 ",".");
 				date = date.replace("일"," ");
 		
 				var price = trs.get(i).select("td").get(1)+" ";
-				price = price.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-				price = price.replace(/\n/g, " "); // 엔터 제거
+				price = remove_tag(price)
 		
 				var pricemove = trs.get(i).select("td").get(6)+" ";
-				pricemove = pricemove.replace(/<[^>]+>/g, ""); // 태그 제거하고 안에 내용만 빼기, (다 제거)
-				pricemove = pricemove.replace(/\n/g, " "); // 엔터 제거
+				pricemove = remove_tag(pricemove)
 		
 				result = result+ date+": " + price +" ("+ pricemove+")" + "\n";
 			}		
 
 			replier.reply("[ "+stockname+" ]"+"\n"+result)
 		}
-}							
+}
+
+function remove_tag(data_tag){
+	data_tag = data_tag.replace(/<[^>]+>/g, "")
+	data_tag = data_tag.replace(/\n/g, " ");
+	var data_untag = data_tag
+	return data_untag
+}
 								</details></code></pre>
 								<p></p>
 								<h3>greed_fear.js</h3>
