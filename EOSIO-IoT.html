@@ -98,7 +98,7 @@ public class  ConnectSSH {
     public String MW(String Command1){
         ArrayList totalmsg = null;
         //EOS Dev 비밀번호
-        String password = "dong2307";
+        String password = "****";
         // String command1 = "cleos wallet create -n "+username+"--to-console"; // EOS 명령어
         try {
             Properties config = new Properties();
@@ -106,7 +106,7 @@ public class  ConnectSSH {
             JSch jsch = new JSch();
             // Create a JSch session to connect to the server
             Session session = jsch.getSession("TechReaderDongKey", "192.168.0.14", 22); //host:ip address
-            session.setPassword("dong2307");
+            session.setPassword("******");
             session.setConfig(config);
             // Establish the connection
             session.connect();
